@@ -23,6 +23,7 @@ def reg_to_binary(name):
 def R_type(lst):
     reg = list(map(str, lst[1].split(",")))
     if lst[0] == "add":
+        
         str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + " 0110011"
     return str1
 def I_type(lst):
