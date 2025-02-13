@@ -68,11 +68,11 @@ def I_type(lst):
     if reg_to_binary(reg[1]) == "Error" or reg_to_binary(reg[0]) == "Error":
         return "Register Error"
     if lst[0] == "lw":
-        str1 = immediate+reg_to_binary[reg[1]]+"010"+reg_to_binary[reg[0]]+"0000011"
+        str1 = immediate+reg_to_binary(reg[1])+"010"+reg_to_binary(reg[0])+"0000011"
     elif lst[0] == "jalr":
-        str1 = immediate+reg_to_binary[reg[1]]+"000"+reg_to_binary[reg[0]]+"1100111"
+        str1 = immediate+reg_to_binary(reg[1])+"000"+reg_to_binary(reg[0])+"1100111"
     elif lst[0] == "addi":
-        str1 = immediate+reg_to_binary[reg[1]]+"000"+reg_to_binary[reg[0]]+"0010011"
+        str1 = immediate+reg_to_binary(reg[1])+"000"+reg_to_binary(reg[0])+"0010011"
     return str1
             
 def S_type(lst):
