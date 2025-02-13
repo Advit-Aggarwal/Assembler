@@ -86,29 +86,27 @@ def S_type(lst):
     return str1
 def B_type(lst,labels,Pc):
     parts = lst[1].split(",")
-    if len(parts) != 2:
-        return "Error: Incorrect operand count for J-type instruction."
+    if reg_to_binary(parts[1]) == "Error" or reg_to_binary(parts[0]) == "Error":
+        return "Register Error"
     
-    rd = reg_to_binary(parts[0].strip())
-    if rd == "Error":
-        return "Error: Invalid destination register"
-    
-    label = parts[1].strip()
+    label = parts[2].strip()
     if label in labels.keys():
         str01 = num_to_binary(labels[label] - Pc - 1)
     else:
-        try:    
+        try:
+            if reg_to_binary(parts[2]) == "Error":
+                return "Register Error"
             str01 = num_to_binary(int(label), 20)
             if str01 == "Illegal":
                 return "str01 is illegal."
         except:
             return "label is not defined"
     if lst[0] == "beq":
-        str1 = str01[0] + str01[2:8]+reg_to_binary(reg[1])+"000"+reg_to_binary(reg[0])+str01[8:] + str01[1]+"1100011"
+        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+"000"+reg_to_binary(parts[0])+str01[8:] + str01[1]+"1100011"
     elif lst[0] == "bne":
-        str1 = str01[0] + str01[2:8]+reg_to_binary(reg[1])+"001"+reg_to_binary(reg[0])+str01[8:] + str01[1]+"1100011"
+        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+"001"+reg_to_binary(parts[0])+str01[8:] + str01[1]+"1100011"
     elif lst[0] == "blt":
-        str1 = str01[0] + str01[2:8]+reg_to_binary(reg[1])+"100"+reg_to_binary(reg[0])+str01[8:] + str01[1]+"1100011"
+        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+"100"+reg_to_binary(parts[0])+str01[8:] + str01[1]+"1100011"
     return str1
     
 def J_type(lst, labels, Pc):    
