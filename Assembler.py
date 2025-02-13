@@ -82,7 +82,7 @@ def S_type(lst):
     if lst[0] == "sw":
         str1 = immediate[-12:-5]+reg_to_binary[reg[0]]+reg_to_binary[reg[1]]+"010"+immediate[-5:]+"0100011"
     return str1
-def B_type(lst):
+def B_type(lst, labels, Pc):
     pass
 def J_type(lst, labels, Pc):    
     parts = lst[1].split(",")
