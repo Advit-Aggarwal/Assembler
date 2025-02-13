@@ -4,7 +4,7 @@ def twos_compliment(value):
     str1 = ""
     str2 = str(value)
     n = len(str2)
-    for i in range(n - 1, 0, -1):
+    for i in range(n - 1, -1, -1):
         if str2[i] == "0":
             str1 = "0" + str1 
         elif str2[i] == "1":
