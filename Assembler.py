@@ -37,6 +37,8 @@ def Bonus_type(lst):
     pass
 
 def main(lines):
+    labels = {}
+    Pc = -1
     R_type_list = {"add", "sub", "slt", "srl", "or", "and"}
     I_type_list = {"lw", "addi", "jarl"}
     S_type_list = {"sw"}
@@ -44,10 +46,18 @@ def main(lines):
     J_type_list = {"jal"}
     Bonus_type_list = {"halt", "rst"}
     for line in lines:
+        Pc += 1
         final_line = ""
         final_lines= ""
         line = line.strip("\n")
-        lst = list(map(str, line.split(maxsplit = 1)))
+        line.strip()
+        if ":" in line:
+            lst1 = line.split(":")
+            lst1 = [s.lstrip() for s in lst1]
+            labels[lst1[0]] = Pc
+            lst = list(map(str, lst1[1].split(maxsplit = 1)))
+        else:
+            lst = list(map(str, line.split(maxsplit = 1)))
         if lst[0] in R_type_list:
             final_line = R_type(lst)
         elif lst[0] in I_type_list:
@@ -55,10 +65,10 @@ def main(lines):
         elif lst[0] in S_type_list:
             final_line = S_type(lst)
         elif lst[0] in B_type_list:
-            final_line = B_type(lst)
+            final_line = B_type(lst, labels, Pc)
         elif lst[0] in J_type_list:
-            final_line = J_type(lst)
-        elif lst[0] in Bonus_type_list:
+            final_line = J_type(lst, labels, Pc)
+        elif line in Bonus_type_list:
             final_line = Bonus_type(lst)
         else:
             print("The given instruction is not supported/is incorrect.")
