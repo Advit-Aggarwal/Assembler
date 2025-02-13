@@ -2,7 +2,7 @@ with open("testcases.txt", "r") as file:
     lines = file.readlines()
 def twos_compliment(value):
     pass
-def num_to_binary(value, ):
+def num_to_binary(value, num):
     binary = []
     temp = value
     while num > 0:
