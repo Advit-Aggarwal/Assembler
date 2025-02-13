@@ -19,11 +19,24 @@ def reg_to_binary(name):
         "s8": "10110", "s9": "11000", "s10": "11001", "s11": "11010", "t3": "11011",
         "t4": "11100", "t5": "11101", "t6": "11110"
     }
-    return register_map.get(name, "Error: Invalid register")
+    return register_map.get(name, "Error")
 def R_type(lst):
     reg = list(map(str, lst[1].split(",")))
-    if lst[0] == "add":
-        str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + " 0110011"
+    if reg[2] == "Error" or  reg[1] == "Error" or reg[0] == "Error":
+        print("Register Error")
+    else:
+        if lst[0] == "add":
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + " 0110011"
+        if lst[0] == "sub":
+            str1 =  "0100000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + " 0110011"
+        if lst[0] == "slt":
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "010" + reg_to_binary(reg[0]) + " 0110011"
+        if lst[0] == "srl":
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "101" + reg_to_binary(reg[0]) + " 0110011"
+        if lst[0] == "or":
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "110" + reg_to_binary(reg[0]) + " 0110011"
+        if lst[0] == "and":
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "111" + reg_to_binary(reg[0]) + " 0110011"
     return str1
 def I_type(lst):
     pass
