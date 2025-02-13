@@ -44,8 +44,19 @@ def S_type(lst):
     pass
 def B_type(lst):
     pass
-def J_type(lst):
-    pass
+def J_type(lst, labels, Pc):    
+    parts = lst[1].split(",")
+    if len(parts) != 2:
+        return "Error: Incorrect operand count for J-type instruction"
+    
+    rd = reg_to_binary(parts[0].strip())
+    if rd == "Error":
+        return "Error: Invalid destination register"
+    
+    label = parts[1].strip()
+    if label not in labels.keys():
+        return "Error: Undefined label"
+    imm = (labels[label] - Pc - 1) 
 def Bonus_type(lst):
     pass
 
