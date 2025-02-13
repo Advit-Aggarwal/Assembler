@@ -1,4 +1,3 @@
-
 with open("testcases.txt", "r") as file:
     lines = file.readlines()
 
@@ -38,8 +37,8 @@ def reg_to_binary(name):
         "s1": "01001", "a0": "01010", "a1": "01011", "a2": "01100", "a3": "01101",
         "a4": "01110", "a5": "01111", "a6": "10000", "a7": "10001", "s2": "10010",
         "s3": "10011", "s4": "10100", "s5": "10101", "s6": "10110", "s7": "10111",
-        "s8": "10110", "s9": "11000", "s10": "11001", "s11": "11010", "t3": "11011",
-        "t4": "11100", "t5": "11101", "t6": "11110"
+        "s8": "11000", "s9": "11001", "s10": "11010", "s11": "11011", "t3": "11100",
+        "t4": "11101", "t5": "11110", "t6": "11111"
     }
     return register_map.get(name, "Error")
 def R_type(lst):
@@ -62,9 +61,10 @@ def R_type(lst):
     return str1
 def I_type(lst):
     reg = list(map(str, lst[1].split(",")))
-    if "(" in reg:
-        reg[2],reg[1]=map(str,reg[1].split("("))
-        reg[2]=reg[2].strip(")")
+    if "(" in reg[1]:
+        n,reg[1]=map(str,reg[1].split("("))
+        reg.append(n)
+        reg[1]=reg[1].strip(")")
     immediate=num_to_binary(reg[2],12)
     if reg_to_binary(reg[1]) == "Error" or reg_to_binary(reg[0]) == "Error":
         return "Register Error"
@@ -78,11 +78,15 @@ def I_type(lst):
             
 def S_type(lst):
     reg = list(map(str, lst[1].split(",")))
-    reg[2],reg[1]=map(str,reg[1].split("("))
-    reg[2]=reg[2].strip(")")
-    immediate=num_to_binary(reg[2],12)
+    n,reg[1]=map(str,reg[1].split("("))
+    reg.append(n)
+    reg[1]=reg[1].strip(")")
+    try:
+        immediate=num_to_binary(reg[2],12)
+    except:
+        return "Immediate is not a number"
     if lst[0] == "sw":
-        str1 = immediate[-12:-5]+reg_to_binary[reg[0]]+reg_to_binary[reg[1]]+"010"+immediate[-5:]+"0100011"
+        str1 = immediate[-12:-5]+reg_to_binary(reg[0])+reg_to_binary(reg[1])+"010"+immediate[-5:]+"0100011"
     return str1
 def B_type(lst,labels,Pc):
     parts = lst[1].split(",")
@@ -91,22 +95,20 @@ def B_type(lst,labels,Pc):
     
     label = parts[2].strip()
     if label in labels.keys():
-        str01 = num_to_binary(labels[label] - Pc - 1)
+        str01 = num_to_binary((labels[label] - Pc) * 4, 13)
     else:
         try:
-            if reg_to_binary(parts[2]) == "Error":
-                return "Register Error"
-            str01 = num_to_binary(int(label), 20)
+            str01 = num_to_binary(int(label), 13)
             if str01 == "Illegal":
                 return "str01 is illegal."
         except:
             return "label is not defined"
     if lst[0] == "beq":
-        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+"000"+reg_to_binary(parts[0])+str01[8:] + str01[1]+"1100011"
+        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+reg_to_binary(parts[0])+"000"+str01[8:12] + str01[1]+"1100011"
     elif lst[0] == "bne":
-        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+"001"+reg_to_binary(parts[0])+str01[8:] + str01[1]+"1100011"
+        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+reg_to_binary(parts[0])+"001"+str01[8:12] + str01[1]+"1100011"
     elif lst[0] == "blt":
-        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+"100"+reg_to_binary(parts[0])+str01[8:] + str01[1]+"1100011"
+        str1 = str01[0] + str01[2:8]+reg_to_binary(parts[1])+reg_to_binary(parts[0])+"100"+str01[8:12] + str01[1]+"1100011"
     return str1
     
 def J_type(lst, labels, Pc):    
@@ -120,16 +122,16 @@ def J_type(lst, labels, Pc):
     
     label = parts[1].strip()
     if label in labels.keys():
-        str01 = num_to_binary(labels[label] - Pc - 1)
+        str01 = num_to_binary((labels[label] - Pc) * 4, 21)
     else:
         try:    
-            str01 = num_to_binary(int(label), 20)
+            str01 = num_to_binary(int(label), 21)
             if str01 == "Illegal":
                 return "Immediate is illegal."
         except:
             return "label is not defined"
     if lst[0] == "jal":
-        str1 = str01[0]+ str01[10:] + str01[9] + str01[1:9] + reg_to_binary(rd) +"000" + str01[8:] + str01[1] + "1100011" 
+        str1 = str01[0]+ str01[10:20] + str01[9] + str01[1:9] + reg_to_binary(rd) + "1101111" 
     return str1
 def Bonus_type(lst):
     if lst == "rst":
