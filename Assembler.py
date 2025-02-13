@@ -1,21 +1,16 @@
 with open("testcases.txt", "r") as file:
     lines = file.readlines()
-def twos_compliment(value):
-    str1 = ""
-    str2 = str(value)
-    n = len(str2)
-    for i in range(n - 1, -1, -1):
-        if str2[i] == "0":
-            str1 = "0" + str1 
-        elif str2[i] == "1":
-            str1 = "1" + str1
-            for j in range(i - 1, -1, -1):
-                if str2[j] == "0":
-                    str1 = "1" + str1
-                elif str2[j] == "1":
-                    str1 = "0" + str1
-            break
-    return str1
+def twos_complement(binary_str):
+    inverted = ''.join('1' if bit == '0' else '0' for bit in binary_str)
+    twos_comp_int = int(inverted, 2) + 1
+    binary_result = bin(twos_comp_int)[2:]
+    binary_result = binary_result.zfill(len(binary_str))
+    
+    return binary_result
+
+binary_input = input("Enter a binary number: ").strip()
+result = twos_complement(binary_input)
+print("Two's complement:", result)
 def num_to_binary(value, num):
     binary = []
     temp = value
