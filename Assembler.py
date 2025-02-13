@@ -9,7 +9,7 @@ def num_to_binary(value, num):
         binary.append(str(value % 2))
         value = value // 2
         num -= 1
-    if value != "0":
+    if value != 0:
         return "Illegal"
     binary = binary[::-1]
     str1 = "".join(binary)
