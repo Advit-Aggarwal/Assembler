@@ -60,9 +60,29 @@ def R_type(lst):
             str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "111" + reg_to_binary(reg[0]) + " 0110011"
     return str1
 def I_type(lst):
-    pass
+    reg = list(map(str, lst[1].split(",")))
+    if "(" in reg:
+        reg[2],reg[1]=map(str,reg[1].split("("))
+        reg[2]=reg[2].strip(")")
+    immediate=num_to_binary(reg[2],12)
+    if reg_to_binary(reg[1]) == "Error" or reg_to_binary(reg[0]) == "Error":
+        return "Register Error"
+    if lst[0] == "lw":
+        str1 = immediate+reg_to_binary[reg[1]]+"010"+reg_to_binary[reg[0]]+"0000011"
+    elif lst[0] == "jalr":
+        str1 = immediate+reg_to_binary[reg[1]]+"000"+reg_to_binary[reg[0]]+"1100111"
+    elif lst[0] == "addi":
+        str1 = immediate+reg_to_binary[reg[1]]+"000"+reg_to_binary[reg[0]]+"0010011"
+    return str1
+            
 def S_type(lst):
-    pass
+    reg = list(map(str, lst[1].split(",")))
+    reg[2],reg[1]=map(str,reg[1].split("("))
+    reg[2]=reg[2].strip(")")
+    immediate=num_to_binary(reg[2],12)
+    if lst[0] == "sw":
+        str1 = immediate[-12:-5]+reg_to_binary[reg[0]]+reg_to_binary[reg[1]]+"010"+immediate[-5:-1]+"0100011"+reg_to_binary[reg[1]]
+    return str1
 def Bonus_type(lst):
     if lst == "rst":
         str1 = I_type(["addi", "zero,zero,0"])
