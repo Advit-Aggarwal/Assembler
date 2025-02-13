@@ -1,3 +1,4 @@
+
 with open("testcases.txt", "r") as file:
     lines = file.readlines()
 
@@ -115,6 +116,7 @@ def Bonus_type(lst):
     return str1
 
 virtual_halt = False
+final_lines = ""
 labels = {}
 Pc = -1
 R_type_list = {"add", "sub", "slt", "srl", "or", "and"}
@@ -128,7 +130,6 @@ for line in lines:
         final_line += "Virtual Halt is not the last instruction" + "\n"
     Pc += 1
     final_line = ""
-    final_lines= ""
     line = line.strip("\n")
     line.strip()
     if ":" in line:
@@ -154,9 +155,9 @@ for line in lines:
         final_line = Bonus_type(lst)
     else:
         final_line = "The given instruction is not supported/is incorrect."
-    final_lines += final_line + "\n"
+    if final_line:
+        final_lines += final_line + "\n"
 if virtual_halt == False:
     final_lines += "Virtual Halt is not present" + "\n"
 with open("output code.txt", "w") as file:
     file.write(final_lines)
-        
