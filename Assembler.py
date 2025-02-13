@@ -49,8 +49,12 @@ def I_type(lst):
     pass
 def S_type(lst):
     pass
-def B_type(lst):
-    pass
+def Bonus_type(lst):
+    if lst == "rst":
+        str1 = I_type(["addi", "zero,zero,0"])
+    elif lst == "halt":
+        str1 = B_type(["beq", "zero,zero,0"])
+    return str1
 def J_type(lst, labels, Pc):    
     parts = lst[1].split(",")
     if len(parts) != 2:
