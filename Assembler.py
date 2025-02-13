@@ -47,17 +47,17 @@ def R_type(lst):
         return "Register Error"
     else:
         if lst[0] == "add":
-            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + " 0110011"
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + "0110011"
         if lst[0] == "sub":
-            str1 =  "0100000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + " 0110011"
+            str1 =  "0100000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "000" + reg_to_binary(reg[0]) + "0110011"
         if lst[0] == "slt":
-            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "010" + reg_to_binary(reg[0]) + " 0110011"
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "010" + reg_to_binary(reg[0]) + "0110011"
         if lst[0] == "srl":
-            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "101" + reg_to_binary(reg[0]) + " 0110011"
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "101" + reg_to_binary(reg[0]) + "0110011"
         if lst[0] == "or":
-            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "110" + reg_to_binary(reg[0]) + " 0110011"
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "110" + reg_to_binary(reg[0]) + "0110011"
         if lst[0] == "and":
-            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "111" + reg_to_binary(reg[0]) + " 0110011"
+            str1 =  "0000000" + reg_to_binary(reg[2]) + reg_to_binary(reg[1]) + "111" + reg_to_binary(reg[0]) + "0110011"
     return str1
 def I_type(lst):
     reg = list(map(str, lst[1].split(",")))
