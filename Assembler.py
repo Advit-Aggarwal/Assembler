@@ -68,6 +68,7 @@ def Bonus_type(lst):
     pass
 
 def main(lines):
+    virtual_halt = False
     labels = {}
     Pc = -1
     R_type_list = {"add", "sub", "slt", "srl", "or", "and"}
@@ -77,6 +78,8 @@ def main(lines):
     J_type_list = {"jal"}
     Bonus_type_list = {"halt", "rst"}
     for line in lines:
+        if virtual_halt:
+            final_line += "Virtual Halt is not the last instruction" + "\n"
         Pc += 1
         final_line = ""
         final_lines= ""
@@ -89,9 +92,27 @@ def main(lines):
             lst = list(map(str, lst1[1].split(maxsplit = 1)))
         else:
             lst = list(map(str, line.split(maxsplit = 1)))
+        if lst == ["beq", "zero,zero,0"]:
+            virtual_halt = True
         if lst[0] in R_type_list:
             final_line = R_type(lst)
         elif lst[0] in I_type_list:
+            final_line = I_type(lst)
+        elif lst[0] in S_type_list:
+            final_line = S_type(lst)
+        elif lst[0] in B_type_list:
+            final_line = B_type(lst, labels, Pc)
+        elif lst[0] in J_type_list:
+            final_line = J_type(lst, labels, Pc)
+        elif line in Bonus_type_list:
+            final_line = Bonus_type(lst)
+        else:
+            final_line = "The given instruction is not supported/is incorrect."
+        final_lines += final_line + "\n"
+    if virtual_halt == False:
+        final_lines += "Virtual Halt is not present" + "\n"
+    with open("output code.txt", "w") as file:
+        file.write(final_lines)
             final_line = I_type(lst)
         elif lst[0] in S_type_list:
             final_line = S_type(lst)
