@@ -10,8 +10,11 @@ def twos_complement(binary_str):
     return bin(twos_comp)[2:].zfill(n)[-n:]
 
 def num_to_binary(value, num):
+    num = num - 1
     binary = []
     temp = value
+    if value < 0:
+        value = -value
     while num > 0:
         binary.append(str(value % 2))
         value = value // 2
@@ -22,6 +25,9 @@ def num_to_binary(value, num):
     str1 = "".join(binary)
     if temp < 0:
         str1 = twos_complement(str1)
+        str1 = "1" + str1
+    else:
+        str1 = "0" + str1
     return str1
 def reg_to_binary(name):
     register_map = {
