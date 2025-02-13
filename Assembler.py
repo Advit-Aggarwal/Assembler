@@ -5,16 +5,16 @@ def twos_compliment(value):
     str2 = str(value)
     n = len(str2)
     for i in range(n - 1, 0, -1):
-        if value[i] == "0":
+        if str2[i] == "0":
             str1 = "0" + str1 
-        elif value[i] == "1":
+        elif str2[i] == "1":
             str1 = "1" + str1
+            for j in range(i - 1, -1, -1):
+                if str2[j] == "0":
+                    str1 = "1" + str1
+                elif str2[j] == "1":
+                    str1 = "0" + str1
             break
-    for j in range(i, 0, -1):
-        if value[j] == "0":
-            str1 = "1" + str1
-        elif value[j] == "1":
-            str1 = "0" + str1
     return str1
 def num_to_binary(value, num):
     binary = []
