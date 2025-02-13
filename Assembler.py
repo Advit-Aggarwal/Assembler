@@ -2,12 +2,12 @@ with open("testcases.txt", "r") as file:
     lines = file.readlines()
 
 def twos_complement(binary_str):
+    if binary_str == '0' * len(binary_str):
+        return binary_str  
     inverted = ''.join('1' if bit == '0' else '0' for bit in binary_str)
     twos_comp_int = int(inverted, 2) + 1
     binary_result = bin(twos_comp_int)[2:]
-    binary_result = binary_result.zfill(len(binary_str))
-    
-    return binary_result
+    return binary_result[-len(binary_str):]
 
 def num_to_binary(value, num):
     binary = []
