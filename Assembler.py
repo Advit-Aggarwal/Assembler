@@ -13,6 +13,7 @@ def num_to_binary(value, num):
     num = num - 1
     binary = []
     temp = value
+    value = int(value)
     if value < 0:
         value = -value
     while num > 0:
@@ -117,7 +118,7 @@ virtual_halt = False
 labels = {}
 Pc = -1
 R_type_list = {"add", "sub", "slt", "srl", "or", "and"}
-I_type_list = {"lw", "addi", "jarl"}
+I_type_list = {"lw", "addi", "jalr"}
 S_type_list = {"sw"}
 B_type_list = {"beq", "bne", "blt"}
 J_type_list = {"jal"}
