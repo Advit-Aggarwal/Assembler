@@ -12,8 +12,8 @@ def twos_complement(binary_str):
 def num_to_binary(value, num):
     num = num - 1
     binary = []
-    temp = value
     value = int(value)
+    temp = value
     if value < 0:
         value = -value
     while num > 0:
