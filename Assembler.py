@@ -110,7 +110,7 @@ def J_type(lst, labels, Pc):
     if lst[0] == "jal":
         str1 = str01[0]+ str01[10:] + str01[9] + str01[1:9] + reg_to_binary(rd) +"000" + str01[8:] + str01[1] + "1100011" 
     return str1
-def Bonus_type(lst):
+def B_type(lst):
     pass
 
 
