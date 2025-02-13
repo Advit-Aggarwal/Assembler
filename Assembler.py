@@ -159,19 +159,4 @@ def main(lines):
         final_lines += "Virtual Halt is not present" + "\n"
     with open("output code.txt", "w") as file:
         file.write(final_lines)
-            final_line = I_type(lst)
-        elif lst[0] in S_type_list:
-            final_line = S_type(lst)
-        elif lst[0] in B_type_list:
-            final_line = B_type(lst, labels, Pc)
-        elif lst[0] in J_type_list:
-            final_line = J_type(lst, labels, Pc)
-        elif line in Bonus_type_list:
-            final_line = Bonus_type(lst)
-        else:
-            print("The given instruction is not supported/is incorrect.")
-        if final_line != "":
-            final_lines += final_line + "\n"
-    
-    with open("output code.txt", "w") as file:
-        file.write(final_lines)
+            
