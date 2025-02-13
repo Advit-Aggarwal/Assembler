@@ -82,12 +82,8 @@ def S_type(lst):
     if lst[0] == "sw":
         str1 = immediate[-12:-5]+reg_to_binary[reg[0]]+reg_to_binary[reg[1]]+"010"+immediate[-5:]+"0100011"
     return str1
-def Bonus_type(lst):
-    if lst == "rst":
-        str1 = I_type(["addi", "zero,zero,0"])
-    elif lst == "halt":
-        str1 = B_type(["beq", "zero,zero,0"])
-    return str1
+def B_type(lst):
+    pass
 def J_type(lst, labels, Pc):    
     parts = lst[1].split(",")
     if len(parts) != 2:
@@ -110,9 +106,12 @@ def J_type(lst, labels, Pc):
     if lst[0] == "jal":
         str1 = str01[0]+ str01[10:] + str01[9] + str01[1:9] + reg_to_binary(rd) +"000" + str01[8:] + str01[1] + "1100011" 
     return str1
-def B_type(lst):
-    pass
-
+def Bonus_type(lst):
+    if lst == "rst":
+        str1 = I_type(["addi", "zero,zero,0"])
+    elif lst == "halt":
+        str1 = B_type(["beq", "zero,zero,0"])
+    return str1
 
 virtual_halt = False
 labels = {}
