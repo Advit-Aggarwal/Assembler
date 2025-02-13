@@ -4,11 +4,18 @@ def twos_compliment(value):
     pass
 def num_to_binary(value):
     binary = []
-    while value > 0:
+    temp = value
+    while num > 0:
         binary.append(str(value % 2))
         value = value // 2
-        
-    return binary[::-1]
+        num -= 1
+    if value != "0":
+        return "Illegal"
+    binary = binary[::-1]
+    str1 = "".join(binary)
+    if temp < 0:
+        str1 = twos_compliment(str1)
+    return str1
 def reg_to_binary(name):
     register_map = {
         "zero": "00000", "ra": "00001", "sp": "00010", "gp": "00011", "tp": "00100",
