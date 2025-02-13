@@ -1,5 +1,6 @@
 with open("testcases.txt", "r") as file:
     lines = file.readlines()
+
 def twos_complement(binary_str):
     inverted = ''.join('1' if bit == '0' else '0' for bit in binary_str)
     twos_comp_int = int(inverted, 2) + 1
@@ -8,9 +9,6 @@ def twos_complement(binary_str):
     
     return binary_result
 
-binary_input = input("Enter a binary number: ").strip()
-result = twos_complement(binary_input)
-print("Two's complement:", result)
 def num_to_binary(value, num):
     binary = []
     temp = value
