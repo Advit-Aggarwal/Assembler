@@ -54,16 +54,25 @@ def B_type(lst):
 def J_type(lst, labels, Pc):    
     parts = lst[1].split(",")
     if len(parts) != 2:
-        return "Error: Incorrect operand count for J-type instruction"
+        return "Error: Incorrect operand count for J-type instruction."
     
     rd = reg_to_binary(parts[0].strip())
     if rd == "Error":
         return "Error: Invalid destination register"
     
     label = parts[1].strip()
-    if label not in labels.keys():
-        return "Error: Undefined label"
-    imm = (labels[label] - Pc - 1) 
+    if label in labels.keys():
+        str01 = num_to_binary(labels[label] - Pc - 1)
+    else:
+        try:    
+            str01 = num_to_binary(int(label), 20)
+            if str01 == "Illegal":
+                return "Immediate is illegal."
+        except:
+            return "label is not defined"
+    if lst[0] == "jal":
+        str1 = str01[0]+ str01[10:] + str01[9] + str01[1:9] + reg_to_binary(rd) +"000" + str01[8:] + str01[1] + "1100011" 
+    return str1
 def Bonus_type(lst):
     pass
 
