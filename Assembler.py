@@ -21,7 +21,7 @@ def num_to_binary(value, num):
     binary = binary[::-1]
     str1 = "".join(binary)
     if temp < 0:
-        str1 = twos_compliment(str1)
+        str1 = twos_complement(str1)
     return str1
 def reg_to_binary(name):
     register_map = {
