@@ -131,7 +131,7 @@ def J_type(lst, labels, Pc):
         except:
             return "label is not defined"
     if lst[0] == "jal":
-        str1 = str01[0]+ str01[10:20] + str01[9] + str01[1:9] + reg_to_binary(rd) + "1101111" 
+        str1 = str01[0]+ str01[10:20] + str01[9] + str01[1:9] + rd + "1101111" 
     return str1
 def Bonus_type(lst):
     if lst == "rst":
