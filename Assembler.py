@@ -151,6 +151,12 @@ B_type_list = {"beq", "bne", "blt"}
 J_type_list = {"jal"}
 Bonus_type_list = {"halt", "rst"}
 for line in lines:
+    Pc += 1
+    if ":" in line:
+        l = line.split(":")
+        labels[l[0]] = Pc
+Pc = -1
+for line in lines:
     if virtual_halt:
         final_line += "Virtual Halt is not the last instruction" + "\n"
     Pc += 1
